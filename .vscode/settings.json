@@ -1,0 +1,24 @@
+{
+    "python.linting.ignorePatterns": [
+        "database/*",
+        ".vscode/*.py",
+    ],
+    "python.analysis.extraPaths": [
+        "./backend",
+    ],
+    "python.linting.mypyArgs": [
+        "--follow-imports=silent",
+        "--ignore-missing-imports",
+        "--show-column-numbers",
+        "--no-pretty",
+    ],
+    "python.linting.pycodestyleArgs": [
+        // At least two spaces before inline comment (E261)
+        // Line break occurred after a binary operator (W504)
+        // Module level import not at top of file (E402)
+        "--ignore=E261,W504,E402",
+
+        "--max-line-length=100"
+    ],
+    // "mypy.configFile": "backend/setup.cfg"
+}

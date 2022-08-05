@@ -1,0 +1,12 @@
+# vscode
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log
+
+#database
+database/postgres-data
+
+#backend
+.mypy_cache
+backend/venv
+backend/__pycache__/
