@@ -2,6 +2,7 @@
     "python.linting.ignorePatterns": [
         "database/*",
         ".vscode/*.py",
+        "database/postgres-data/*",
     ],
     "python.analysis.extraPaths": [
         "./backend",
@@ -20,5 +21,5 @@
 
         "--max-line-length=100"
     ],
-    // "mypy.configFile": "backend/setup.cfg"
+    "mypy.configFile": "mypy.ini"
 }

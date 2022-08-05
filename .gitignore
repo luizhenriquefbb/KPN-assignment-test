@@ -9,4 +9,5 @@ database/postgres-data
 #backend
 .mypy_cache
 backend/venv
-backend/__pycache__/
+backend/**/__pycache__/
+
