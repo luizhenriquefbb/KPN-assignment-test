@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Main } from '../components/Main';
 import api from '../services/api';
@@ -131,6 +131,7 @@ const User: React.FC = () => {
                                 );
                             })}
                         </div>
+
                         <div id='available-products' className='px-5 py-8 mx-2 my-6 flex-grow'>
                             <h2>Available Products</h2>
 
@@ -141,6 +142,10 @@ const User: React.FC = () => {
                                     </ul>
                                 );
                             })}
+
+                            <Link to='/new-product' className='mt-8 block'>
+                                <Button variant='outlined' className='button mx-auto'>Create Product</Button>
+                            </Link>
                         </div>
 
                     </div>
