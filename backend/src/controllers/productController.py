@@ -8,7 +8,7 @@ class ProductController (Controller):
     """Class with basic operations of Product"""
 
     @staticmethod
-    def create(name: str, id: str = None):  # pylint: disable=redefined-builtin
+    def create(name: str):
         """
         Create a new product inserting into the database
 
@@ -19,9 +19,7 @@ class ProductController (Controller):
         """
         with Session(ProductController.engine) as session:
             product = Product(
-                id=id,
                 name=name,
-
             )
 
             session.add(product)

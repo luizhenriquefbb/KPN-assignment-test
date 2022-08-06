@@ -1,6 +1,7 @@
 from typing import Union
 from sqlalchemy.orm import Session
 from src.controllers import Controller
+from src.exceptions import BadRequestApiException
 from src.models import Gender, User
 
 
@@ -18,7 +19,7 @@ class UserController (Controller):
                city: str,
                mobilenumber: str,
                email: str,
-               id: str = None):  # pylint: disable=redefined-builtin
+               ):
         """Create a new user inserting into the database
 
         Args:
@@ -36,8 +37,12 @@ class UserController (Controller):
 
         """
         with Session(UserController.engine) as session:
+            # Check if email already exists
+            user_exists = session.query(User).filter_by(email=email).first()
+            if user_exists:
+                raise BadRequestApiException("User with email already exists")
+
             user = User(
-                id=id,
                 lastname=lastname,
                 firstname=firstname,
                 birth=birth,

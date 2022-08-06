@@ -16,22 +16,27 @@
 [] User friendly errors
 [x] Get user details
 [x] Link user to product
+[] Handle errors
+    [] Bad request
 * Future work:
     [] Filter sensitive information during requests
     [] We can configure and create a lot o more tests
     [] Security: only logged user can make requests
     [] User a better architecture:
         * Model - Map python objects to database representation
-        * View - Remove sensitive information for the user
+        * View - Remove sensitive information for the user / validate API inputs
         * Repositories - Remove complex queries from controllers
+    [] Handle errors
+        [] Server is down
 
 ## Front end
 [x] Design
-[] Implement pages
+[x] Implement pages
     [x] List users
     [x] User details
     [x] Create User
 [] Put figma project on the readme
+[] Assign Product to Users
 [] Handle errors
 
 * Future work:
