@@ -1,7 +1,6 @@
-from src.controllers import Controller
 from sqlalchemy.orm import Session
-
-from src.models.product import Product
+from src.controllers import Controller
+from src.models import Product
 
 
 class ProductController (Controller):
@@ -21,6 +20,7 @@ class ProductController (Controller):
             product = Product(
                 id=id,
                 name=name,
+
             )
 
             session.add(product)
@@ -30,16 +30,25 @@ class ProductController (Controller):
 
     @staticmethod
     def remove():
-        pass
+        raise NotImplementedError("Future work")
 
     @staticmethod
     def update():
-        pass
+        raise NotImplementedError("Future work")
 
     @staticmethod
     def search():
-        pass
+        raise NotImplementedError("Future work")
 
     @staticmethod
     def list():
-        pass
+        """
+        List all products of the database. In a real application we would want some filters
+        and limitations
+        """
+        response = []
+        with Session(ProductController.engine) as session:
+            products = session.query(Product).order_by(Product.id).all()
+            response = [product.to_json() for product in products]
+
+        return response

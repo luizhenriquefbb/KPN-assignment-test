@@ -6,6 +6,8 @@ Entry point: This file will be responsible for creating a FLASK app and configur
 import os
 
 from dotenv import load_dotenv
+
+from src.controllers.userController import UserController
 load_dotenv(dotenv_path=os.path.join(f'{os.getcwd()}', '.env'))
 
 # pylint: disable=wrong-import-position
@@ -13,7 +15,6 @@ from flask import Flask, abort, jsonify, request
 from flask_cors import CORS  # type: ignore
 
 from src.controllers.productController import ProductController
-from src.models.product import Product  # type: ignore
 # pylint: enable=wrong-import-position
 
 LISTEN_HOST = os.environ.get("KPN_LISTEN_HOST") or "localhost"
@@ -25,12 +26,13 @@ CORS(APP)
 
 @APP.route("/api/product/list", methods=["GET"])
 def get_products():
-    products = Product.query.all()
-    return jsonify([product.to_json() for product in products])
+    return jsonify(ProductController.list()), 200
 
 
 @APP.route('/api/product', methods=['POST'])
 def create_product():
+    # validate if user sent body
+    # TODO: validate body
     if not request.json:
         abort(400)
 
@@ -39,10 +41,34 @@ def create_product():
         "name": request.json.get('name'),
     }
 
-    if not user_input['id']:
-        del user_input['id']
-
+    # TODO: Show the user an error in case he send an id that already exists
     product = ProductController.create(**user_input)
+
+    return jsonify(product), 201
+
+
+@APP.route('/api/user', methods=['POST'])
+def create_user():
+    # validate if user sent body
+    # TODO: validate body
+    if not request.json:
+        abort(400)
+
+    user_input = {
+        "lastname": request.json.get('lastname'),
+        "firstname": request.json.get('firstname'),
+        "birth": request.json.get('birth'),
+        "gender": request.json.get('gender'),
+        "housenumber": request.json.get('housenumber'),
+        "zipcode": request.json.get('zipcode'),
+        "streetname": request.json.get('streetname'),
+        "city": request.json.get('city'),
+        "mobilenumber": request.json.get('mobilenumber'),
+        "email": request.json.get('email'),
+    }
+
+    # TODO: Show the user an error in case he send an id that already exists
+    product = UserController.create(**user_input)
 
     return jsonify(product), 201
 
