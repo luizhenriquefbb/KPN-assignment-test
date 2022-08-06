@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.title {
+    @apply text-5xl font-bold text-violet-500;
+}
+
+body {
+    /* using apply to appy tailwind classes */
+    /* @apply bg-gray-900 text-gray-100; */
+    -webkit-font-smoothing: antialiased;
+}
+
+
+.my-table tbody tr:nth-child(even) {
+    @apply bg-myGray-1
+}
+

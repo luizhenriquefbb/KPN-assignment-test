@@ -15,11 +15,11 @@
 [] Run in docker
 [] User friendly errors
 [x] Get user details
-[] Link user to product
+[x] Link user to product
 * Future work:
-    [] Filter sensitive information
+    [] Filter sensitive information during requests
     [] We can configure and create a lot o more tests
-
+    [] Security: only logged user can make requests
 
 ## Front end
 [] Design
