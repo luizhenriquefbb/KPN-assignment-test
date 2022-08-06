@@ -1,6 +1,7 @@
 import { Alert, Button, Snackbar } from '@mui/material';
 import { AxiosError } from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Main } from '../components/Main';
 import { UpdateUserInfo } from '../components/UserInfoProps';
@@ -25,6 +26,8 @@ const NewUser: React.FC = () => {
         setOpenSnackBar('');
     };
 
+    const navigate = useNavigate();
+
     const onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
@@ -44,11 +47,16 @@ const NewUser: React.FC = () => {
                     email,
                 }
             );
+
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         }
         catch (e) {
             const error = e as AxiosError;
             setOpenSnackBar(error.response?.data as string);
         }
+
     };
 
     return (
