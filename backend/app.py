@@ -8,6 +8,7 @@ import os
 from dotenv import load_dotenv
 
 from src.controllers.userController import UserController
+from src.controllers.userProductController import UserProductController
 load_dotenv(dotenv_path=os.path.join(f'{os.getcwd()}', '.env'))
 
 # pylint: disable=wrong-import-position
@@ -77,9 +78,20 @@ def create_user():
 def get_users():
     return jsonify(UserController.list()), 200
 
-@APP.route("/api/user/<int:user_id>/", methods=["GET"])
+@APP.route("/api/user/<int:user_id>", methods=["GET"])
 def get_user(user_id):
     return jsonify(UserController.search(user_id=user_id)), 200
+
+
+@APP.route("/api/user/<int:user_id>/order-product", methods=["POST"])
+def assign_product_to_user(user_id):
+    if not request.json:
+        abort(400)
+
+    product_id = request.json.get('product_id')
+
+    return jsonify(UserProductController.create(user_id=user_id, product_id=product_id)), 201
+
 
 
 if __name__ == '__main__':

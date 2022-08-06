@@ -1,3 +1,4 @@
+from typing import Union
 from sqlalchemy.orm import Session
 from src.controllers import Controller
 from src.models import Product
@@ -37,8 +38,18 @@ class ProductController (Controller):
         raise NotImplementedError("Future work")
 
     @staticmethod
-    def search():
-        raise NotImplementedError("Future work")
+    def search(product_id: Union[str, int]):
+        """Get product by product_id
+
+        Args:
+            product_id (Union[int, str]): product id
+        """
+
+        with Session(ProductController.engine) as session:
+            product: Product = session.query(Product).filter_by(id=product_id).first()
+            if product:
+                return product.to_json()
+            return None
 
     @staticmethod
     def list():
