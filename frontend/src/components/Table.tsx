@@ -1,11 +1,11 @@
+/* eslint-disable prefer-spread */
 import { TableSortLabel, Tooltip } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 
 export const sortByColumns = {
     userName: 'FirstName',
@@ -35,23 +35,23 @@ const TableSort: React.FunctionComponent<{
 };
 
 type Props = {
+    elements: unknown[]
+};
 
-}
-
-export const MyTable: React.FC<Props> = (props) => {
-    const [sortOrderBy, setSortOrderBy] = useState<string>("");
-    const [sortOrder, setSortOrder] = useState<"asc"|"desc">("asc");
+export const MyTable: React.FC<Props> = (props): JSX.Element => {
+    const [sortOrderBy, setSortOrderBy] = useState<string>('');
+    const [sortOrder, setSortOrder] = useState<'asc'|'desc'>('asc');
 
     const handleRequestSort = (property: string) => {
         const newSortOrderBy = property;
-        let newSortOrder: 'desc' | 'asc' = sortOrder || "desc";
+        let newSortOrder: 'desc' | 'asc' = sortOrder || 'desc';
         if (newSortOrderBy === property && sortOrder === 'desc') {
             newSortOrder = 'asc';
         }
 
-        setSortOrderBy(newSortOrderBy)
-        setSortOrder(newSortOrder)
-    }
+        setSortOrderBy(newSortOrderBy);
+        setSortOrder(newSortOrder);
+    };
 
     return (
         <Table className='my-table'>
@@ -83,9 +83,9 @@ export const MyTable: React.FC<Props> = (props) => {
             </TableHead>
             <TableBody>
 
-                {Array.apply(null, Array(5)).map(() => {
+                {Array.apply(null, Array(5)).map((_, index) => {
                     return (
-                        <TableRow>
+                        <TableRow key={index}>
                             <TableCell style={{ paddingRight: '24px' }}>
                                 Name 1
                             </TableCell>
@@ -102,9 +102,9 @@ export const MyTable: React.FC<Props> = (props) => {
                                 Email 1
                             </TableCell>
                         </TableRow>
-                    )
+                    );
                 })}
             </TableBody>
         </Table>
-    )
-}
+    );
+};
