@@ -73,5 +73,14 @@ def create_user():
     return jsonify(product), 201
 
 
+@APP.route("/api/users/list", methods=["GET"])
+def get_users():
+    return jsonify(UserController.list()), 200
+
+@APP.route("/api/user/<int:user_id>/", methods=["GET"])
+def get_user(user_id):
+    return jsonify(UserController.search(user_id=user_id)), 200
+
+
 if __name__ == '__main__':
     APP.run(debug=True, host=LISTEN_HOST, port=LISTEN_PORT)

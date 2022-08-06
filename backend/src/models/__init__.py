@@ -79,4 +79,5 @@ class User(Base):  # type: ignore
             "city": self.city,
             "mobilenumber": self.mobilenumber,
             "email": self.email,
+            "products": [product.to_json() for product in self.products],
         }
