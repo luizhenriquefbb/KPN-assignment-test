@@ -16,8 +16,8 @@
 [] User friendly errors
 [x] Get user details
 [x] Link user to product
-[] Handle errors
-    [] Bad request
+[x] Handle errors
+    [x] Bad request
 * Future work:
     [] Filter sensitive information during requests
     [] We can configure and create a lot o more tests
@@ -36,8 +36,10 @@
     [x] User details
     [x] Create User
 [] Put figma project on the readme
-[] Assign Product to Users
-[] Handle errors
+[x] Assign Product to Users
+[x] Handle errors
+[x] When submitting a new user, go to home page
 
 * Future work:
     [] Unit test
+    [] Loader while waiting for requests

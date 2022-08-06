@@ -5,7 +5,8 @@ import { Main } from '../components/Main';
 import api from '../services/api';
 import { TProduct, TUser  } from '../types';
 import { UserInfo } from '../components/UserInfoProps';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
+import { AxiosError } from 'axios';
 
 type RouteParams = { user_id: string };
 
@@ -43,13 +44,26 @@ const User: React.FC = () => {
         setSelectedProduct(product);
     };
 
-    const linkProductAndUser = () => {
-        api.post(
-            `/api/user/${user?.id}/order-product`,
-            {
-                product_id: selectedProduct?.id
-            }
-        );
+    const [openSnackBar, setOpenSnackBar] = useState<string>('');
+
+    const closeSnackBar = () => {
+        setOpenSnackBar('');
+    };
+
+    const linkProductAndUser = async () => {
+
+        try {
+            await api.post(
+                `/api/user/${user?.id}/order-product`,
+                {
+                    product_id: selectedProduct?.id
+                }
+            );
+        }
+        catch (e) {
+            const error = e as AxiosError;
+            setOpenSnackBar(error.response?.data as string);
+        }
 
         closeDialog();
 
@@ -176,6 +190,12 @@ const User: React.FC = () => {
                 </Button>
             </DialogActions>
         </Dialog>
+
+        <Snackbar open={!!openSnackBar} autoHideDuration={6000} onClose={closeSnackBar}>
+            <Alert onClose={closeSnackBar} severity='error' sx={{ width: '100%' }}>
+                {openSnackBar}
+            </Alert>
+        </Snackbar>
     </>);
 };
 
