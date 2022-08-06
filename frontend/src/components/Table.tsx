@@ -84,6 +84,9 @@ export const MyTable: React.FC<Props> = (props): JSX.Element => {
                     <TableCell style={{ paddingRight: '24px' }}>
                         Email
                     </TableCell>
+                    <TableCell style={{ paddingRight: '24px' }}>
+                        Action
+                    </TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -101,11 +104,9 @@ export const MyTable: React.FC<Props> = (props): JSX.Element => {
                     return (
                         mustRender &&
                         <TableRow key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <TableCell style={{ paddingRight: '24px' }}>
-                                    {user.firstname} {user.lastname}
-                                </TableCell>
-                            </Link>
+                            <TableCell style={{ paddingRight: '24px' }}>
+                                {user.firstname} {user.lastname}
+                            </TableCell>
                             <TableCell style={{ paddingRight: '24px' }}>
                                 {user.housenumber}
                             </TableCell>
@@ -117,6 +118,13 @@ export const MyTable: React.FC<Props> = (props): JSX.Element => {
                             </TableCell>
                             <TableCell style={{ paddingRight: '24px' }}>
                                 {user.email}
+                            </TableCell>
+                            <TableCell style={{ paddingRight: '24px' }}>
+                                <Link to={`/user/${user.id}`}>
+                                    <span className='text-green-900 p-2 border border-green-900 center rounded-md'>
+                                        Go to User
+                                    </span>
+                                </Link>
                             </TableCell>
                         </TableRow>
 
