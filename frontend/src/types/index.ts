@@ -3,15 +3,17 @@ export type TProduct = {
     name:string,
 };
 
+export type TGender = {
+    id: number;
+    name: string;
+};
+
 export type TUser = {
     id:number,
     lastname:string,
     firstname: string,
     birth: string,
-    gender: {
-        id: number,
-        name: string
-    },
+    gender: TGender,
     housenumber: string,
     zipcode: string,
     streetname: string,

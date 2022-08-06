@@ -17,6 +17,10 @@ body {
     @apply bg-myGray-1
 }
 
+.button {
+
+}
+
 /* put border in divs for testing purposes */
 .test{
     @apply border border-black

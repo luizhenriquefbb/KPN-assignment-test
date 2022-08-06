@@ -9,13 +9,13 @@ import os
 from dotenv import load_dotenv
 load_dotenv(dotenv_path=os.path.join(f'{os.getcwd()}', '.env'))
 
-from src.controllers.userController import UserController
-from src.controllers.userProductController import UserProductController
-
 from flask import Flask, abort, jsonify, request
 from flask_cors import CORS  # type: ignore
 
+from src.controllers.userController import UserController
+from src.controllers.userProductController import UserProductController
 from src.controllers.productController import ProductController
+from src.controllers.genderController import GenderController
 
 
 LISTEN_HOST = os.environ.get("KPN_LISTEN_HOST") or "localhost"
@@ -91,6 +91,10 @@ def assign_product_to_user(user_id):
     product_id = request.json.get('product_id')
 
     return jsonify(UserProductController.create(user_id=user_id, product_id=product_id)), 201
+
+@APP.route("/api/genders/", methods=["GET"])
+def get_genders():
+    return jsonify(GenderController.list()), 200
 
 
 
