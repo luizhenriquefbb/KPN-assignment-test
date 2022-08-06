@@ -1,15 +1,135 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Header } from '../components/Header';
+import { Main } from '../components/Main';
+import api from '../services/api';
+import { TProduct, TUser  } from '../types';
+import { UserInfo } from '../components/UserInfoProps';
 
+type RouteParams = { user_id: string };
 
-interface UserProps {}
+const User: React.FC = () => {
+    const { user_id } = useParams<RouteParams>();
 
-type RouteParams = { user_id: string }
+    const [user, setUser] = useState<TUser>();
+    const [products, setProducts] = useState<TProduct[]>([]);
 
-const User: React.FC<UserProps> = (props: UserProps) => {
-    const { user_id } = useParams<RouteParams>()
+    const getUser = async () => {
+        const request = await api.get(`/api/user/${user_id}`);
+        const userData: TUser = request.data;
+
+        setUser(userData);
+    };
+    const getProducts = async () => {
+        const request = await api.get('/api/product/list');
+        setProducts(request.data);
+    };
+
+    useEffect(() => {
+        getUser();
+        getProducts();
+    }, []);
+
     return (<>
-        <h2>{user_id}</h2>
+        <div className='flex flex-col min-h-screen'>
+
+            <Header />
+            <Main><>
+                <h1>{user?.firstname} {user?.lastname}</h1>
+
+                {
+                    user &&
+                    <div className='flex flex-wrap flex-auto items-start justify-between'>
+                        <div id='user-details' className='px-5 py-6 mx-2 my-6 flex-grow'>
+                            <h2>User Details</h2>
+
+                            <div className='grid gap-4 grid-cols-2'>
+                                <UserInfo
+                                    attributeKeyUserFriendly={'First Name'}
+                                    attributeValue={user.firstname}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'Last Name'}
+                                    attributeValue={user.lastname}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'Birthday'}
+                                    attributeValue={user.birth}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'Gender'}
+                                    attributeValue={user.gender.name}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'House Number'}
+                                    attributeValue={user.housenumber}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'Zip Code'}
+                                    attributeValue={user.zipcode}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'Street Name'}
+                                    attributeValue={user.streetname}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'City'}
+                                    attributeValue={user.city}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'Mobile Number'}
+                                    attributeValue={user.mobilenumber}
+                                    editable={false}
+                                />
+                                <UserInfo
+                                    attributeKeyUserFriendly={'Email'}
+                                    attributeValue={user.email}
+                                    editable={false}
+                                />
+
+                            </div>
+                        </div>
+                        <div id='purchased-products' className='px-5 py-8 mx-2 my-6 flex-grow'>
+                            <h2>Purchased Products</h2>
+
+                            {!user.products.length &&
+                            <span className='text-red-600'>This customer does not have any product</span>
+                            }
+
+                            {user.products.map(product => {
+                                return (
+                                    <ul key={product.id}>
+                                        <li className='text-gray-300 text-left'>{product.name}</li>
+                                    </ul>
+                                );
+                            })}
+                        </div>
+                        <div id='available-products' className='px-5 py-8 mx-2 my-6 flex-grow'>
+                            <h2>Available Products</h2>
+
+                            {products.map(product => {
+                                return (
+                                    <ul key={product.id}>
+                                        <li className='text-gray-300 text-left'>{product.name}</li>
+                                    </ul>
+                                );
+                            })}
+                        </div>
+
+                    </div>
+                }
+
+            </></Main>
+
+        </div>
     </>);
 };
 

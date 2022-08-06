@@ -17,3 +17,8 @@ body {
     @apply bg-myGray-1
 }
 
+/* put border in divs for testing purposes */
+.test{
+    @apply border border-black
+}
+

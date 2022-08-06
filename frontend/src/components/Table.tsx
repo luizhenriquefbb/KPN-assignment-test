@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TUsers } from '../types';
+import { TUser } from '../types';
 
 export const sortByColumns = {
     userName: 'FirstName',
@@ -37,7 +37,7 @@ const TableSort: React.FunctionComponent<{
 };
 
 type Props = {
-    elements: TUsers[],
+    elements: TUser[],
     searchQuery: string
 };
 
