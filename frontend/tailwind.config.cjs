@@ -10,6 +10,10 @@ module.exports = {
         sans: 'Roboto, sans-serif'
       },
       colors: {
+        myGreen: {
+          1: "#00C300",
+          2: "#C7FA00",
+        },
         green: {
           300: '#00B37E',
           500: '#00875F',
@@ -23,6 +27,9 @@ module.exports = {
         },
         red: {
           500: '#F75A68',
+        },
+        myGray: {
+          1: "#F3F3F7"
         },
         gray: {
           100: '#E1E1E6',
