@@ -6,15 +6,13 @@ Entry point: This file will be responsible for creating a FLASK app and configur
 import os
 
 from dotenv import load_dotenv
-
 load_dotenv(dotenv_path=os.path.join(f'{os.getcwd()}', '.env'))
 
 # pylint: disable=wrong-import-position
 from flask import Flask, abort, jsonify, request
 from flask_cors import CORS  # type: ignore
-from sqlalchemy.orm import Session
 
-from src.database import engine
+from src.controllers.productController import ProductController
 from src.models.product import Product  # type: ignore
 # pylint: enable=wrong-import-position
 
@@ -36,16 +34,17 @@ def create_product():
     if not request.json:
         abort(400)
 
-    with Session(engine) as session:
-        product = Product(
-            id=request.json.get('id'),
-            name=request.json.get('name'),
-        )
+    user_input = {
+        "id": request.json.get('id'),
+        "name": request.json.get('name'),
+    }
 
-        session.add(product)
-        session.commit()
+    if not user_input['id']:
+        del user_input['id']
 
-        return jsonify(product.to_json()), 201
+    product = ProductController.create(**user_input)
+
+    return jsonify(product), 201
 
 
 if __name__ == '__main__':
