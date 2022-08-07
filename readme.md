@@ -13,6 +13,9 @@
 [] Backend Tests
 [] Document installation process and how to run
 [] Run in docker
+[] User friendly errors
+[] Get user details
+[] Link user to product
 
 
 ## Front end

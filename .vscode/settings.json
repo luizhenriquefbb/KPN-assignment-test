@@ -17,7 +17,8 @@
         // At least two spaces before inline comment (E261)
         // Line break occurred after a binary operator (W504)
         // Module level import not at top of file (E402)
-        "--ignore=E261,W504,E402",
+        // arguments-differ
+        "--ignore=E261,W504,E402,W0221",
 
         "--max-line-length=100"
     ],
