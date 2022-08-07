@@ -16,6 +16,8 @@ Due to a lack of time, I have made some decisions that can be judged wrong, but 
 
 - I put the .env files in the GIT repository just to prevent errors during the installation, but I know it is not advisable
 
+- Have different environments to test
+
 
 # How to configure the environment
 
@@ -79,7 +81,7 @@ To complement the framework I used:
     [x] Init database with ORM (SQLAlchemy)
     [x] Script to start the database
     [] Backend Tests
-    [] Document installation process and how to run
+    [x] Document installation process and how to run
     [x] Run in docker
     [x] User friendly errors
     [x] Get user details
