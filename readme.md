@@ -14,8 +14,29 @@ Due to a lack of time, I have made some decisions that can be judged wrong, but 
 
 - Security: I'm not handling authentication at the moment
 
+- I put the .env files in the GIT repository just to prevent errors during the installation, but I know it is not advisable
+
 
 # How to configure the environment
+
+The application is using docker, so all you need to do is having docker and docker compose installed on you local machine and use the [make file](makefile) commands use it (NOTE: some commands assume you are using a linux OS).
+
+Build the docker images
+```sh
+make build
+```
+
+Run containers
+```sh
+make up
+```
+
+If you want, you can reset the database too
+```sh
+make clear-database
+```
+
+
 
 ## Database
 
@@ -59,7 +80,7 @@ To complement the framework I used:
     [x] Script to start the database
     [] Backend Tests
     [] Document installation process and how to run
-    [] Run in docker
+    [x] Run in docker
     [x] User friendly errors
     [x] Get user details
     [x] Link user to product
