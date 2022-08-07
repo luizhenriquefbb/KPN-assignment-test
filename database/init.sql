@@ -45,11 +45,16 @@ CREATE TABLE public."User" (
     CONSTRAINT "User_email_key" UNIQUE (email),
     CONSTRAINT user_fk FOREIGN KEY (gender) REFERENCES public."Gender"(id)
 );
+INSERT INTO public."User"
+(id, lastname, firstname, birth, gender, housenumber, zipcode, streetname, city, mobilenumber, email)
+VALUES(1, 'Barros', 'Luiz', '1994-02-12', 1, '123', '456', '789', 'João Pessoa', '+5583999322442', 'luizhenriquefbb@gmail.com');
+
 
 CREATE TABLE public.UserProduct (
     id serial NOT null primary KEY,
     "user" int NOT NULL,
     product int NOT NULL,
     CONSTRAINT newtable_fk FOREIGN KEY (product) REFERENCES public."Product"(id) ON DELETE CASCADE,
-    CONSTRAINT userproduct_fk FOREIGN KEY ("user") REFERENCES public."User"(id) ON DELETE CASCADE
+    CONSTRAINT UserProduct_fk FOREIGN KEY ("user") REFERENCES public."User"(id) ON DELETE CASCADE
 );
+INSERT INTO public.UserProduct (id, "user", product) VALUES(1, 1, 1);

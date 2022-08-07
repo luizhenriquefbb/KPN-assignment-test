@@ -1,3 +1,4 @@
+from typing import Optional, Union
 from sqlalchemy.orm import Session
 from src.controllers import Controller
 from src.models import User
@@ -63,8 +64,18 @@ class UserController (Controller):
         raise NotImplementedError("Future work")
 
     @staticmethod
-    def search():
-        raise NotImplementedError("Future work")
+    def search(user_id: Union[int, str]):
+        """Get user bu user_id
+
+        Args:
+            user_id (Union[int, str]): user id
+        """
+
+        with Session(UserController.engine) as session:
+            user: Optional[User] = session.query(User).filter_by(id=user_id).first()
+            if user:
+                return user.to_json()
+            return None
 
     @staticmethod
     def list():
