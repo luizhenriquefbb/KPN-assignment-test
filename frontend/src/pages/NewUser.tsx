@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+import { Alert, Button, Snackbar } from '@mui/material';
+import { AxiosError } from 'axios';
 import React, { useState } from 'react';
 import { Header } from '../components/Header';
 import { Main } from '../components/Main';
@@ -18,25 +19,36 @@ const NewUser: React.FC = () => {
     const [mobilenumber, setMobilenumber] = useState<string>('');
     const [email, setEmail] = useState<string>('');
 
-    const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    const [openSnackBar, setOpenSnackBar] = useState<string>('');
+
+    const closeSnackBar = () => {
+        setOpenSnackBar('');
+    };
+
+    const onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
 
-        api.post(
-            'api/user',
-            {
-                lastname,
-                firstname,
-                birth,
-                gender: genderId,
-                housenumber,
-                zipcode,
-                streetname,
-                city,
-                mobilenumber,
-                email,
-            }
-        );
-
+        try {
+            await api.post(
+                'api/user',
+                {
+                    lastname,
+                    firstname,
+                    birth,
+                    gender: genderId,
+                    housenumber,
+                    zipcode,
+                    streetname,
+                    city,
+                    mobilenumber,
+                    email,
+                }
+            );
+        }
+        catch (e) {
+            const error = e as AxiosError;
+            setOpenSnackBar(error.response?.data as string);
+        }
     };
 
     return (
@@ -112,6 +124,12 @@ const NewUser: React.FC = () => {
                 </form>
 
             </></Main>
+
+            <Snackbar open={!!openSnackBar} autoHideDuration={6000} onClose={closeSnackBar}>
+                <Alert onClose={closeSnackBar} severity='error' sx={{ width: '100%' }}>
+                    {openSnackBar}
+                </Alert>
+            </Snackbar>
         </div>
     );
 
