@@ -1,0 +1,20 @@
+{
+  "name": "kpn-feature-tests",
+  "version": "1.0.0",
+  "description": "e2e tests",
+  "scripts": {
+    "test": "cypress run",
+    "cy": "cypress open",
+    "cy:edge": "cypress run --browser edge",
+    "cy:firefox": "cypress run --browser firefox"
+  },
+  "author": "Luiz Henrique",
+  "devDependencies": {
+    "cypress": "9.6.1",
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-chai-friendly": "^0.7.2",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}

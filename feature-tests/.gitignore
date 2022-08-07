@@ -1,0 +1,8 @@
+# Cypress env variable
+cypress.env.json
+node_modules
+
+# Cypress run time creation
+cypress/screenshots
+cypress/videos
+cypress/downloads
