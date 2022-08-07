@@ -21,7 +21,7 @@ Due to a lack of time, I have made some decisions that can be judged wrong, but 
 
 # How to configure the environment
 
-The application is using docker, so all you need to do is having docker and docker compose installed on you local machine and use the [make file](makefile) commands use it (NOTE: some commands assume you are using a linux OS).
+The application is using docker, so all you need to do is to have docker and docker compose installed on you local machine and use the [make file](makefile) commands as followed (NOTE: some commands assume you are using a linux OS).
 
 Build the docker images
 ```sh
@@ -87,14 +87,16 @@ Please refer to the [tests documentation](feature-tests/README.md)
         [x] Bad request
     * Future work:
         [] Filter sensitive information during requests
-        [] We can configure and create a lot o more tests
+        [] We can configure and create a lot of more tests
         [] Security: only logged user can make requests
-        [] User a better architecture:
+        [] Use a better architecture:
             * Model - Map python objects to database representation
             * View - Remove sensitive information for the user / validate API inputs
             * Repositories - Remove complex queries from controllers
         [] Handle errors
             [] Server is down
+        [] Performance:
+            [] Do not fetch all the data once. Use pagination
 
 ## Front end
     [x] Design
