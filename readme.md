@@ -20,7 +20,19 @@
     [] Filter sensitive information during requests
     [] We can configure and create a lot o more tests
     [] Security: only logged user can make requests
+    [] User a better architecture:
+        * Model - Map python objects to database representation
+        * View - Remove sensitive information for the user
+        * Repositories - Remove complex queries from controllers
 
 ## Front end
-[] Design
-[] Implement pages (TBD)
+[x] Design
+[] Implement pages
+    [x] List users
+    [x] User details
+    [x] Create User
+[] Put figma project on the readme
+[] Handle errors
+
+* Future work:
+    [] Unit test

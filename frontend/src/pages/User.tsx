@@ -47,52 +47,42 @@ const User: React.FC = () => {
                                 <UserInfo
                                     attributeKeyUserFriendly={'First Name'}
                                     attributeValue={user.firstname}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'Last Name'}
                                     attributeValue={user.lastname}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'Birthday'}
                                     attributeValue={user.birth}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'Gender'}
                                     attributeValue={user.gender.name}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'House Number'}
                                     attributeValue={user.housenumber}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'Zip Code'}
                                     attributeValue={user.zipcode}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'Street Name'}
                                     attributeValue={user.streetname}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'City'}
                                     attributeValue={user.city}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'Mobile Number'}
                                     attributeValue={user.mobilenumber}
-                                    editable={false}
                                 />
                                 <UserInfo
                                     attributeKeyUserFriendly={'Email'}
                                     attributeValue={user.email}
-                                    editable={false}
                                 />
 
                             </div>

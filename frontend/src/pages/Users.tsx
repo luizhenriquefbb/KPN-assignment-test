@@ -1,5 +1,7 @@
 
+import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Main } from '../components/Main';
 import { MyTable } from '../components/Table';
@@ -35,12 +37,18 @@ export function Users() {
             <Main><>
                 <h1>Users</h1>
 
-                <div id='search_user'>
-                    <input
-                        type='text'
-                        placeholder='Search user...'
-                        className='bg-transparent w-full mt-8 mb-8'
-                        onChange={evt => searchUser(evt)}/>
+                <div className='flex items-center'>
+                    <div id='search_user' className='mr-7 min-w-[33%]'>
+                        <input
+                            type='text'
+                            placeholder='Search user...'
+                            className='bg-transparent w-full mt-8 mb-8'
+                            onChange={evt => searchUser(evt)}/>
+                    </div>
+
+                    <Link to='new-user'>
+                        <Button variant='outlined' className='button'>Create User</Button>
+                    </Link>
                 </div>
 
                 <MyTable elements={users} searchQuery={searchQuery}/>
