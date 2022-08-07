@@ -4,16 +4,16 @@ import { Header } from '../components/Header';
 import { Main } from '../components/Main';
 import { MyTable } from '../components/Table';
 import api from '../services/api';
-import { TUsers } from '../types';
+import { TUser } from '../types';
 
 export function Users() {
 
-    const [users, setUsers] = useState<TUsers[]>([]);
+    const [users, setUsers] = useState<TUser[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
 
     const getAllUsers = async () => {
         const request = await api.get('/api/users/list');
-        const users: TUsers[] = request.data;
+        const users: TUser[] = request.data;
 
         setUsers(users);
     };

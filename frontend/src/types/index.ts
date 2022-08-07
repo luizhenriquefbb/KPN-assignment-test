@@ -1,18 +1,21 @@
 export type TProduct = {
-    id:string,
+    id:number,
     name:string,
 };
 
-export type TUsers = {
-    id:string,
+export type TUser = {
+    id:number,
     lastname:string,
-    firstname:string,
-    birth:string,
-    gender:string,
-    housenumber:string,
-    zipcode:string,
-    streetname:string,
-    city:string,
+    firstname: string,
+    birth: string,
+    gender: {
+        id: number,
+        name: string
+    },
+    housenumber: string,
+    zipcode: string,
+    streetname: string,
+    city: string,
     mobilenumber:string,
     email:string,
     products:TProduct[],

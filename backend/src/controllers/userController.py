@@ -1,7 +1,7 @@
 from typing import Union
 from sqlalchemy.orm import Session
 from src.controllers import Controller
-from src.models import User
+from src.models import Gender, User
 
 
 class UserController (Controller):
@@ -72,9 +72,13 @@ class UserController (Controller):
         """
 
         with Session(UserController.engine) as session:
-            user: User = session.query(User).filter_by(id=user_id).first()
+            (user, gender) = session.query(User, Gender).filter_by(id=user_id).join(Gender).first()
             if user:
-                return user.to_json()
+                user = user.to_json()
+            if gender:
+                user['gender'] = gender.to_json()
+                return user
+
             return None
 
     @staticmethod
