@@ -6,6 +6,8 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { TUsers } from '../types';
 
 export const sortByColumns = {
     userName: 'FirstName',
@@ -35,7 +37,8 @@ const TableSort: React.FunctionComponent<{
 };
 
 type Props = {
-    elements: unknown[]
+    elements: TUsers[],
+    searchQuery: string
 };
 
 export const MyTable: React.FC<Props> = (props): JSX.Element => {
@@ -52,6 +55,8 @@ export const MyTable: React.FC<Props> = (props): JSX.Element => {
         setSortOrderBy(newSortOrderBy);
         setSortOrder(newSortOrder);
     };
+
+    const elements = (props.elements);
 
     return (
         <Table className='my-table'>
@@ -83,25 +88,38 @@ export const MyTable: React.FC<Props> = (props): JSX.Element => {
             </TableHead>
             <TableBody>
 
-                {Array.apply(null, Array(5)).map((_, index) => {
+                {elements.map(user => {
+                    const userName = `${user.firstname} ${user.lastname}`;
+                    const searchQuery = props.searchQuery.toLowerCase();
+                    const mustRender = (
+                        userName.toLowerCase().includes(searchQuery) ||
+                        user.housenumber.toLowerCase().includes(searchQuery) ||
+                        user.zipcode.toLowerCase().includes(searchQuery) ||
+                        user.mobilenumber.toLowerCase().includes(searchQuery) ||
+                        user.email.toLowerCase().includes(searchQuery)
+                    );
                     return (
-                        <TableRow key={index}>
+                        mustRender &&
+                        <TableRow key={user.id}>
+                            <Link to={`/user/${user.id}`}>
+                                <TableCell style={{ paddingRight: '24px' }}>
+                                    {user.firstname} {user.lastname}
+                                </TableCell>
+                            </Link>
                             <TableCell style={{ paddingRight: '24px' }}>
-                                Name 1
+                                {user.housenumber}
                             </TableCell>
                             <TableCell style={{ paddingRight: '24px' }}>
-                                House Number 1
+                                {user.zipcode}
                             </TableCell>
                             <TableCell style={{ paddingRight: '24px' }}>
-                                Zip Code 1
+                                {user.mobilenumber}
                             </TableCell>
                             <TableCell style={{ paddingRight: '24px' }}>
-                                Mobile Number 1
-                            </TableCell>
-                            <TableCell style={{ paddingRight: '24px' }}>
-                                Email 1
+                                {user.email}
                             </TableCell>
                         </TableRow>
+
                     );
                 })}
             </TableBody>

@@ -9,6 +9,7 @@ import { TUsers } from '../types';
 export function Users() {
 
     const [users, setUsers] = useState<TUsers[]>([]);
+    const [searchQuery, setSearchQuery] = useState<string>('');
 
     const getAllUsers = async () => {
         const request = await api.get('/api/users/list');
@@ -24,9 +25,8 @@ export function Users() {
     const searchUser = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const value = evt.target.value;
 
-        if (value.length > 3) {
-            // TODO: call to API
-        }
+        setSearchQuery(value);
+
     };
 
     return (
@@ -43,13 +43,8 @@ export function Users() {
                         onChange={evt => searchUser(evt)}/>
                 </div>
 
-                <MyTable elements={users}/>
+                <MyTable elements={users} searchQuery={searchQuery}/>
 
-                <ul>
-                    {users.map(user => {
-                        return <li key={user.id}>{user.firstname}</li>;
-                    })}
-                </ul>
             </></Main>
         </div>
     );
