@@ -18,8 +18,8 @@
             "envFile": "${workspaceFolder}/backend/.env",
             "args": [
                 "run",
-                "--no-debugger",
-                "--no-reload",
+                // "--no-debugger",
+                // "--no-reload",
                 "-h",
                 "0.0.0.0",
                 "--port",
@@ -27,6 +27,22 @@
             ],
             "jinja": true,
             "justMyCode": true
-        }
+        },
+        {
+            "name": "Python Attach to docker",
+            "type": "python",
+            "request": "attach",
+            "host": "127.0.0.1",
+            "port": 5678,
+            "jinja": true,
+            "redirectOutput": true,
+            "subProcess": true, // sub-process debugging, autoreload
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/",
+                    "remoteRoot": "/api"
+                }
+            ],
+        },
     ]
 }

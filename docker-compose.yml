@@ -19,6 +19,41 @@ services:
     networks:
       - kpn-assignment
 
+  api:
+    build:
+      context: .
+      dockerfile: docker/api.Dockerfile
+    container_name: api
+    command: run
+    restart: always
+    ports:
+      - 5010:3001
+      - 5678:5678
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/api
+    networks:
+      - kpn-assignment
+
+
+  ui:
+    build:
+      context: .
+      dockerfile: docker/ui.Dockerfile
+    container_name: kpn-ui
+    restart: on-failure
+    ports:
+      - 3000:5173
+    command: start
+    env_file: ./frontend/.env
+    environment:
+      - NODE_ENV=local
+      - NODE_PORT=3000
+    volumes:
+      - ./frontend:/app/mnt
+      - ./frontend/node_modules:/app/mnt/node_modules
+    networks:
+      - kpn-assignment
 
 networks:
   kpn-assignment:

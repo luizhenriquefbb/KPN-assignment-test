@@ -14,4 +14,4 @@ POSTGRES_PORT = os.environ['POSTGRES_PORT']
 
 engine = create_engine(
     f'postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@'
-    f'{POSTGRES_HOST}:{POSTGRES_PORT}/postgres')
+    f'{POSTGRES_HOST}/postgres')
