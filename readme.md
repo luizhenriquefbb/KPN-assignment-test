@@ -38,7 +38,8 @@ If you want, you can reset the database too
 make clear-database
 ```
 
-
+- The front end can be accessed on `localhost:3000`
+- and the backend on `localhost:5010`
 
 ## Database
 
@@ -66,13 +67,9 @@ To complement the framework I used:
 ![User page 1](./readme_files/user_page1.png)
 ![User page 1](./readme_files/user_page2.png)
 
+## Tests
 
-
-
-# How to run it
-
-
-# TODO
+Please refer to the [tests documentation](feature-tests/README.md)
 
 ## Backend
 
