@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Union
 from sqlalchemy.orm import Session
 from src.controllers import Controller
 from src.models import User
@@ -65,14 +65,14 @@ class UserController (Controller):
 
     @staticmethod
     def search(user_id: Union[int, str]):
-        """Get user bu user_id
+        """Get user by user_id
 
         Args:
             user_id (Union[int, str]): user id
         """
 
         with Session(UserController.engine) as session:
-            user: Optional[User] = session.query(User).filter_by(id=user_id).first()
+            user: User = session.query(User).filter_by(id=user_id).first()
             if user:
                 return user.to_json()
             return None
