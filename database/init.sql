@@ -5,10 +5,10 @@ CREATE TABLE public."Gender" (
     id SERIAL NOT NULL PRIMARY KEY,
     "name" varchar NOT NULL
 );
-INSERT INTO public."Gender" (id, "name") VALUES(1, 'male');
-INSERT INTO public."Gender" (id, "name") VALUES(2, 'female');
-INSERT INTO public."Gender" (id, "name") VALUES(3, 'other');
-INSERT INTO public."Gender" (id, "name") VALUES(4, 'decline to answer');
+INSERT INTO public."Gender" ("name") VALUES('male');
+INSERT INTO public."Gender" ("name") VALUES('female');
+INSERT INTO public."Gender" ("name") VALUES('other');
+INSERT INTO public."Gender" ("name") VALUES('decline to answer');
 
 -- public."Product" definition
 -- Drop table
@@ -17,15 +17,15 @@ CREATE TABLE public."Product" (
     id SERIAL NOT NULL PRIMARY KEY,
     "name" varchar NOT NULL
 );
-INSERT INTO public."Product" (id, "name") VALUES(1, 'phones 1');
-INSERT INTO public."Product" (id, "name") VALUES(2, 'phones 2');
-INSERT INTO public."Product" (id, "name") VALUES(3, 'phones 3');
-INSERT INTO public."Product" (id, "name") VALUES(4, 'modems 1');
-INSERT INTO public."Product" (id, "name") VALUES(5, 'modems 2');
-INSERT INTO public."Product" (id, "name") VALUES(6, 'modems 3');
-INSERT INTO public."Product" (id, "name") VALUES(7, 'sim cards 1');
-INSERT INTO public."Product" (id, "name") VALUES(8, 'sim cards 2');
-INSERT INTO public."Product" (id, "name") VALUES(9, 'sim cards 3');
+INSERT INTO public."Product" ("name") VALUES('phones 1');
+INSERT INTO public."Product" ("name") VALUES('phones 2');
+INSERT INTO public."Product" ("name") VALUES('phones 3');
+INSERT INTO public."Product" ("name") VALUES('modems 1');
+INSERT INTO public."Product" ("name") VALUES('modems 2');
+INSERT INTO public."Product" ("name") VALUES('modems 3');
+INSERT INTO public."Product" ("name") VALUES('sim cards 1');
+INSERT INTO public."Product" ("name") VALUES('sim cards 2');
+INSERT INTO public."Product" ("name") VALUES('sim cards 3');
 
 -- public."User" definition
 -- Drop table
@@ -46,15 +46,15 @@ CREATE TABLE public."User" (
     CONSTRAINT user_fk FOREIGN KEY (gender) REFERENCES public."Gender"(id)
 );
 INSERT INTO public."User"
-(id, lastname, firstname, birth, gender, housenumber, zipcode, streetname, city, mobilenumber, email)
-VALUES(1, 'Barros', 'Luiz', '1994-02-12', 1, '123', '456', '789', 'João Pessoa', '+5583999322442', 'luizhenriquefbb@gmail.com');
+(lastname, firstname, birth, gender, housenumber, zipcode, streetname, city, mobilenumber, email)
+VALUES('Barros', 'Luiz', '1994-02-12', 1, '123', '456', '789', 'João Pessoa', '+5583999322442', 'luizhenriquefbb@gmail.com');
 
 
-CREATE TABLE public.UserProduct (
+CREATE TABLE public."UserProduct" (
     id serial NOT null primary KEY,
     "user" int NOT NULL,
     product int NOT NULL,
     CONSTRAINT newtable_fk FOREIGN KEY (product) REFERENCES public."Product"(id) ON DELETE CASCADE,
     CONSTRAINT UserProduct_fk FOREIGN KEY ("user") REFERENCES public."User"(id) ON DELETE CASCADE
 );
-INSERT INTO public.UserProduct (id, "user", product) VALUES(1, 1, 1);
+INSERT INTO public."UserProduct" ("user", product) VALUES(1, 1);

@@ -7,10 +7,14 @@ Entry point: This file will be responsible for creating a FLASK app and configur
 import os
 
 from dotenv import load_dotenv
+
+from src.exceptions import BadRequestApiException
 load_dotenv(dotenv_path=os.path.join(f'{os.getcwd()}', '.env'))
 
 from flask import Flask, abort, jsonify, request
 from flask_cors import CORS  # type: ignore
+from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 
 from src.controllers.userController import UserController
 from src.controllers.userProductController import UserProductController
@@ -33,16 +37,29 @@ def get_products():
 @APP.route('/api/product', methods=['POST'])
 def create_product():
     # validate if user sent body
-    # TODO: validate body
     if not request.json:
         abort(400)
 
+    schema = {
+        "type": "object",
+        "properties": {
+            "name": {"type": "string"},
+        },
+        "required": [
+            "name",
+        ],
+        "additionalProperties": False,
+    }
+
+    try:
+        validate(instance=request.json, schema=schema)
+    except ValidationError as error:
+        return error.message, 400
+
     user_input = {
-        "id": request.json.get('id'),
         "name": request.json.get('name'),
     }
 
-    # TODO: Show the user an error in case he send an id that already exists
     product = ProductController.create(**user_input)
 
     return jsonify(product), 201
@@ -50,10 +67,42 @@ def create_product():
 
 @APP.route('/api/user', methods=['POST'])
 def create_user():
-    # validate if user sent body
-    # TODO: validate body
     if not request.json:
         abort(400)
+
+    schema = {
+        "type": "object",
+        "properties": {
+            "lastname": {"type": "string"},
+            "firstname": {"type": "string"},
+            "birth": {"type": "string", "format": "date"},
+            "gender": {"oneOf": [{"type": "string"}, {"type": "number"}]},
+            "housenumber": {"type": "string"},
+            "zipcode": {"type": "string"},
+            "streetname": {"type": "string"},
+            "city": {"type": "string"},
+            "mobilenumber": {"type": "string"},
+            "email": {"type": "string", "format": "email", },
+        },
+        "required": [
+            "lastname",
+            "firstname",
+            "birth",
+            "gender",
+            "housenumber",
+            "zipcode",
+            "streetname",
+            "city",
+            "mobilenumber",
+            "email",
+        ],
+        "additionalProperties": False,
+    }
+
+    try:
+        validate(instance=request.json, schema=schema)
+    except ValidationError as error:
+        return error.message, 400
 
     user_input = {
         "lastname": request.json.get('lastname'),
@@ -68,8 +117,10 @@ def create_user():
         "email": request.json.get('email'),
     }
 
-    # TODO: Show the user an error in case he send an id that already exists
-    product = UserController.create(**user_input)
+    try:
+        product = UserController.create(**user_input)
+    except BadRequestApiException as error:
+        return error.message, error.status_code
 
     return jsonify(product), 201
 
@@ -77,6 +128,7 @@ def create_user():
 @APP.route("/api/users/list", methods=["GET"])
 def get_users():
     return jsonify(UserController.list()), 200
+
 
 @APP.route("/api/user/<int:user_id>", methods=["GET"])
 def get_user(user_id):
@@ -92,10 +144,10 @@ def assign_product_to_user(user_id):
 
     return jsonify(UserProductController.create(user_id=user_id, product_id=product_id)), 201
 
+
 @APP.route("/api/genders/", methods=["GET"])
 def get_genders():
     return jsonify(GenderController.list()), 200
-
 
 
 if __name__ == '__main__':
